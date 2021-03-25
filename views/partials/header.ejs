@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link
+    rel="icon"
+    href="/images/sadgehub.png"
+    type="image/x-icon"
+  />
+
+    <!--BOOTSTRAP-->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <!--BOOTSTRAP-->
+
+     <!--MY STYLES-->
+     <link rel="stylesheet" href="/style.css" />
+     <!--MY STYLES-->
+ 
+     <script src="/script.js" defer></script>
+     <title>SadgeHub | <%- title %></title>
+
+  </head>
+  
+  <% if (title == "Homepage") { %>
+  <body class="greenBox">
+    <% } else { %>
+      <body class="">
+      <% } %>
+
+    
+      
+
+    <div class="header">
+      <div class="progress-container">
+        <div class="progressbar" id="myBar"></div>
+      </div>  
+    </div>
+    <script>
+      // When the user scrolls the page, execute myFunction 
+      window.onscroll = function() {myFunction()};
+      
+      function myFunction() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+      }
+      </script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+      <a class="navbar-brand" href="/">
+        <img src="/images/sadgehubT.png" width="150" height="53.25" alt="">
+      </a>
+      <% if (user) { %>      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/merch">Merch</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/blogs">Blogs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/news">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="" href="/logout">Log Out</a>
+          </li>
+                          
+         <li class="nav-item userGap">
+              Welcome, <%= user.email %>
+          </li>
+       
+<% } else { %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/#about">About Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/merch">Merch</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="blogs">Blogs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="news">News</a>
+      </li>
+      <% } %>    
+
+          </ul>
+        </div>
+      </nav>
+     

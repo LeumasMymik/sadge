@@ -1,0 +1,286 @@
+<%- include('partials/header.ejs'); -%>
+
+<% if (user) { %>
+<div class="container contentBlock">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+      <img class="img-fluid" src="/images/sadgehubT.png">
+      <h2 class="center">Exclusive Content Awaits...</h2>
+      <p class="center">You are logged in as <%= user.email %></p>
+
+    </div>
+  </div>
+</div>
+<% } else { %>
+<div class="container contentBlock">
+  <div class="row">
+    <div class="col-lg-7">
+      <img class="img-fluid" src="/images/sadgehubT.png">
+      <h2 class="center">Join the Sadge Community</h2>
+      <p class="center">Exclusive merch, blogs and news, all <b>FREE</b></p>
+
+    </div>
+
+    <div class="col-lg-5 pt-4 pt-lg-0">
+      <form>
+        <h2>Free to join</h2>
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input class="form-control" type="text" name="email" placeholder="Enter email" required />
+          <div class="email error"></div>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input class="form-control" type="password" name="password" placeholder="Password" required />
+          <div class="password error"></div>
+          <small id="passwordHelp" class="form-text text-muted">Be sure to make a strong password!</small>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Signup</button>
+        <hr>
+        <a href="/login" class="btn btn-primary">Already a member? Login</a>
+
+      </form>
+      <script>
+        const form = document.querySelector('form');
+        const emailError = document.querySelector('.email.error');
+        const passwordError = document.querySelector('.password.error');
+
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+
+          //reset errors
+          emailError.textContent = '';
+          passwordError.textContent = '';
+
+
+
+          //get value
+          const email = form.email.value;
+          const password = form.password.value;
+
+          try {
+            const res = await fetch('/signup', {
+              method: 'POST',
+              body: JSON.stringify({
+                email,
+                password
+              }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
+            const data = await res.json();
+            console.log(data);
+            if (data.errors) {
+              emailError.textContent = data.errors.email;
+              passwordError.textContent = data.errors.password;
+            }
+            if (data.user) {
+              location.assign('/')
+            }
+          } catch (err) {
+            console.log(err)
+          }
+        });
+      </script>
+    </div>
+
+  </div>
+
+</div>
+<% } %>
+
+<div class="container-fluid contentBlock whiteBox">
+  <div class="wrapper row" id="about">
+
+    <div class="col-lg-7">
+      <h1>The #1 Sadge content distributor in the world!</h1>
+      <p> Welcome to SadgeHub! This project was created for our CIT 481/L Senior Design project at California State
+        University: Northridge. Our group is comprised of five aspiring IT students. SadgeHub is a website that allows
+        users to sign up for a 100% free account that unlocks exclusive content for members. To sign up, all you need is
+        an active email! </p>
+    </div>
+
+    <div class="col-lg-5 pt-4 pt-lg-0">
+      <img class="img-fluid sadgeFrog" src="/images/sadge.png">
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid contentBlock blackBox">
+  <div class="wrapper">
+    <div class="row justify-content-start">
+      <h1>How SadgeHub Was Built</h1>
+    </div>
+    <div class="row">
+
+      <div class="col-lg-6">
+
+        <h1>AMAZON WEB SERVICES</h1>
+        <p> As certified AWS Cloud Practitioners, we will be using AWS to deploy and host our web app. AWS is among the
+          most used cloud platforms and we are all familiar with how it works.
+          AWS gives us the flexability to configure our app to our needs in the most effective and efficient way
+          possible.</p>
+      </div>
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <img class="img-fluid" src="/images/aws.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <h1>NODE.JS</h1>
+        <p> Our website is built on Node.js for many reasons. Our development team needed a back-end framework to build
+          SadgeHub, and since we were all familiar with JavaScript, Node.js seemed like an obvious choice. It allows us
+          to seamlessly integrate NPM packages, which greatly increases the projects and applications we are able to
+          create. </p>
+      </div>
+      <div class="col-lg-6">
+        <img class="img-fluid" src="/images/nodejs.svg">
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-lg-6">
+
+        <h1>Terraform</h1>
+        <p> As we move forward as a world and technology advances, automation has become a top priority when it comes to
+          deploying our projects to the cloud. When it comes to infrastructure, it is always a good idea to automate it.
+          Using Terraform, we can build our infrastructure as a code making our deployment process much faster and less
+          of a headache. </p>
+      </div>
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <img class="img-fluid" src="/images/terraform.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid contentBlock whitebox">
+  <div class="wrapper">
+    <div class="row justify-content-center">
+      <h1>MEET THE DEVS</h1>
+    </div>
+    <div class="row justify-content-center">
+      <h3><i class="fab fa-aws"></i> CERTIFIED SINCE FEB. 2021 <i class="fas fa-check-circle"></i></h3>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid devs" src="/images/david.png">
+      </div>
+      <div class="col-lg-6">
+
+        <h1>David Castaneda</h1>
+        <blockquote> Hello! I am David Castaneda and I thank you for visiting SadgeHub! My main goal is to grow as a web
+          developer by creating appealing and interactive websites for both myself and others that users can use daily.
+          I enjoy the creative freedom of web development and the countless open-source frameworks made by others in the
+          community.</blockquote>
+        <ul class="devlinks">
+          <li><i class="fab fa-github"></i> <a href="https://github.com/dec98524">GitHub</a></li>
+          <li><i class="fab fa-linkedin"></i> <a href="linkedin.com/in/david-castaneda-bb5b63203">LinkedIn</a></li>
+          <li><i class="fas fa-at"></i> david.castaneda.409@my.csun.edu</li>
+        </ul>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+      <div class="col-lg-6">
+        <img class="img-fluid devs" src="/images/kc.jpg">
+      </div>
+      <div class="col-lg-6">
+
+        <h1>Kevin Chung</h1>
+        <blockquote> I am a senior student at California State University, Northridge. I am aspiring to become a
+          professional DevOps engineer once I achieve my Computer Information Technology bachelor's degree. I enjoy
+          developing and experimenting with all types of new software and platforms.</blockquote>
+        <ul class="devlinks">
+          <li><i class="fab fa-github"></i> <a href="https://github.com/helloitskayc">GitHub</a></li>
+          <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/kevin-chung-138681167/">LinkedIn</a>
+          </li>
+          <li><i class="fas fa-at"></i> kevin.chung.731@my.csun.edu</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <img class="img-fluid devs" src="/images/nam.jpeg">
+      </div>
+      <div class="col-lg-6">
+
+        <h1>Nam Dang</h1>
+        <blockquote> My name is Nam Dang and I am in my final year here at California State Univerity, Northridge. I am
+          grinding towards getting my bachelor degree in Computer Information Technology. One day I will be a
+          millionaire and make a change in the world.</blockquote>
+        <ul class="devlinks">
+          <li><i class="fab fa-github"></i> <a href="https://github.com/namdang223">GitHub</a></li>
+          <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/nam-dang-426383208/">LinkedIn</a>
+          </li>
+          <li><i class="fas fa-at"></i> nam.dang.141@my.csun.edu</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <img class="img-fluid devs" src="/images/sam.jpg">
+      </div>
+      <div class="col-lg-6">
+
+        <h1>Samuel Kim</h1>
+        <blockquote> My name is Samuel Kim, and I am currently a senior at California State University, Northridge. I am
+          working towards getting a bachelors in Computer Information Technology. After my ascendancy to the legal
+          drinking age here in California, I became the embodiment of the Jinro Frog, Jinro being one of the largest, if
+          not the largest, manufacturer of soju.</blockquote>
+        <ul class="devlinks">
+          <li><i class="fab fa-github"></i> <a href="https://github.com/LeumasMymik">GitHub</a></li>
+          <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/samuel-youngmin-kim/">LinkedIn</a>
+          </li>
+          <li><i class="fas fa-at"></i> samuel.kim.475@my.csun.edu</li>
+        </ul>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-lg-6 pt-4 pt-lg-0">
+        <img class="img-fluid devs" src="/images/zee.jpg">
+      </div>
+      <div class="col-lg-6">
+
+        <h1>Zeeshan Sayed</h1>
+        <blockquote>Hello! My name is Zeeshan Sayed and I am a fouth year undergradute student at California State
+          University, Northridge working towards my bachelor's degree in Computer Infomation Technology. My objective is
+          to make sure that you get all your SadgeHub requirements met!</blockquote>
+        <ul class="devlinks">
+          <li><i class="fab fa-github"></i> <a href="https://github.com/toshmine/toshmine.github.io">GitHub</a></li>
+          <li><i class="fab fa-linkedin"></i> <a
+              href="https://www.linkedin.com/in/zeeshan-sayed-4b70b3184/">LinkedIn</a></li>
+          <li><i class="fas fa-at"></i> zeeshan.sayed.529@my.csun.edu</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<%- include('partials/footer.ejs'); -%>

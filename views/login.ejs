@@ -1,0 +1,78 @@
+<div class="greenBox">
+  <%- include('partials/header.ejs'); -%>
+  <div class="container contentBlock">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <img class="img-fluid" src="/images/sadgehubT.png">
+        <h2 class="center">Content awaits...</h2>
+        <p class="center">Login to access member-exclusive content</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid contentBlock whitebox">
+  <div class="wrapper">
+    <form action="/login">
+      <h2>Go To Exclusive Content</h2>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input class="form-control" type="text" name="email" placeholder="Enter email" required/>
+        <div class="email error"></div>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" name="password" placeholder="Password" required />
+        <div class="password error"></div>
+        <small id="passwordHelp" class="form-text text-muted">Be sure to make a strong password!</small>
+
+      </div>
+    
+      <button type="submit" class="btn btn-primary">Login</button>
+      <hr>
+      <a href="/#signup" class="btn btn-primary">New? Make an account</a>
+
+    </form>
+
+    <script>
+      const form = document.querySelector('form');
+      const emailError = document.querySelector('.email.error');
+      const passwordError = document.querySelector('.password.error');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // reset errors
+        emailError.textContent = '';
+        passwordError.textContent = '';
+        // get values
+        const email = form.email.value;
+        const password = form.password.value;
+        try {
+          const res = await fetch('/login', {
+            method: 'POST',
+            body: JSON.stringify({
+              email,
+              password
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const data = await res.json();
+          console.log(data);
+          if (data.errors) {
+            emailError.textContent = data.errors.email;
+            passwordError.textContent = data.errors.password;
+          }
+          if (data.user) {
+            location.assign('/');
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+  </div>
+</div>
+<%- include('partials/footer.ejs'); -%>
