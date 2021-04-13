@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config();
 const path = require('path');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
@@ -6,6 +7,8 @@ const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 
 const app = express()
+const https = require('https');
+
 
 // middleware
 app.use(express.static('public'));
@@ -25,7 +28,7 @@ app.set('view engine', 'ejs');
 // database connection
 const dbURI = 'mongodb+srv://david:test1234@cluster0.04lp8.mongodb.net/Cluster0';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
-  .then((result) => app.listen(4000))
+  .then((result) => app.listen(process.env.PORT))
   .catch((err) => console.log(err));
 
 app.get('*', checkUser);
